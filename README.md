@@ -2,7 +2,11 @@
   <img src="assets/cover.png" alt="claude-obsidian cover featuring an astronaut, the Obsidian crystal, and a connected knowledge graph" width="100%">
 </p>
 
-<h1 align="center">claude-obsidian</h1>
+<h1 align="center">gigacode-obsidian</h1>
+
+GigaCode extension based on claude-obsidian, with Qwen Code compatibility checks.
+See [GigaCode extension setup and validation](docs/gigacode-extension.md) first.
+The upstream usage and architecture reference follows below.
 
 <p align="center">
   <strong>Build an Obsidian knowledge base that becomes more useful every time you use it.</strong><br>

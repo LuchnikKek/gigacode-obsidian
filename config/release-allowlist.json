@@ -18,6 +18,7 @@
     ".obsidian/workspace*.json",
     ".raw/**",
     ".vault-meta/**",
+    "agents/**",
     "docs/**/*.pdf",
     "docs/audits/**",
     "docs/releases/**",
@@ -39,13 +40,16 @@
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
     "GEMINI.md",
+    "GIGACODE.md",
     "LICENSE",
     "Makefile",
     "PRIVACY.md",
     "README.md",
     "SECURITY.md",
     "WIKI.md",
-    "ZCODE.md"
+    "ZCODE.md",
+    "gigacode-extension.json",
+    "qwen-extension.json"
   ],
   "include_globs": [
     ".github/*.md",
