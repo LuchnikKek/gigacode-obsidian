@@ -167,3 +167,36 @@ all vault file hashes before and after Query/Lint and before any unapproved
 preview. Use a fresh conversation for Query and verify citations against pages
 actually read. Record failures as adapter/core/host/model observations; do not
 hide a failed attempt by overwriting its output directory.
+
+## Recorded 0.1.1 acceptance (2026-10-16)
+
+The audited 0.1.1 candidate passed all five synthetic workflows in WSL on the
+same DeepSeek model, using separate Qwen profiles with managed memory disabled.
+Each CLI phase completed with exit 0 within 480 seconds / 50 tool calls.
+Preview and apply remained separate operator-reviewed phases; no continuations
+or corrective hints were needed. Approximate CLI durations were:
+
+| Workflow | Preview | Apply / read-only run |
+| --- | ---: | ---: |
+| Init | 27 s | 87 s |
+| Save | 131 s | 48 s |
+| Ingest | 266 s | 23 s |
+| Query | — | 70 s |
+| Lint | — | 95 s |
+
+Input facts differed from the shipped examples. Save preserved selected content
+only; Ingest preserved source bytes and four provisional claims. Approved
+transaction paths matched actual changes; repeat apply was byte-idempotent.
+Query returned the new facts with valid section citations. Lint found exactly
+one deliberately broken link; Query/Lint left every vault file hash unchanged.
+No memory documents were generated in the five acceptance profiles.
+
+One Save preview response used Chinese despite the requested Russian; the note
+and operations were correct. This was recorded as a model-output observation,
+not repaired as an adapter defect. These timings are observations from one run,
+not a model benchmark or a guarantee. Direct GigaCode/macOS remain untested.
+
+The six adapter/runner checks passed, including real core inspect/apply of both
+examples and deadline/redaction checks against a local executable. make test
+still reaches the accepted unchanged mtime failure; the remaining 59 transaction
+functions, later Python suites and shell/contracts/package checks pass separately.
