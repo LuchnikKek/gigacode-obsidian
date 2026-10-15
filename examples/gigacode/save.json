@@ -1,0 +1,35 @@
+{
+  "schema": "claude-obsidian.transaction.v1",
+  "operation_id": "example-save",
+  "operation_type": "save",
+  "expected_hashes": {
+    "wiki/sessions/mayak-decision.md": null,
+    "wiki/index.md": "CURRENT_SHA256",
+    "wiki/log.md": "CURRENT_SHA256",
+    "wiki/hot.md": "CURRENT_SHA256"
+  },
+  "writes": [
+    {
+      "path": "wiki/sessions/mayak-decision.md",
+      "mode": "create",
+      "content": "---\ntype: session\ntitle: Решение Маяк\nstatus: active\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - session\n  - mayak\naliases:\n  - \"Решение Маяк\"\n---\n\n# Решение Маяк\n\nЭто сохранённая выдержка из беседы: одно выбранное решение по учебному проекту\n«Маяк». Текст зафиксирован как утверждение участника беседы, а не как\nнезависимо проверенное доказательство; данные синтетические.\n\n- Заметки в проекте «Маяк» обновляют только после предварительного просмотра.\n- Контрольный код решения: `MAPLE-47`.\n\nНевыбранный материал беседы в это сохранение не включён и в хранилище не\nзаписан.\n\nСм. [[index|Wiki Index]].\n"
+    },
+    {
+      "path": "wiki/index.md",
+      "mode": "replace",
+      "content": "---\ntype: meta\ntitle: Wiki Index\nstatus: evergreen\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - meta\n  - index\n---\n\n# Wiki Index\n\nThis catalog is updated by completed knowledge operations.\n\n## Sources\n\n- No sources indexed yet.\n\n## Concepts\n\n- No concepts indexed yet.\n\n## Entities\n\n- No entities indexed yet.\n\n## Questions\n\n- No questions indexed yet.\n\n## Sessions\n\n- [[mayak-decision|Решение Маяк]] — сохранённое решение по проекту «Маяк» (2020-01-01).\n"
+    },
+    {
+      "path": "wiki/log.md",
+      "mode": "replace",
+      "content": "---\ntype: meta\ntitle: Wiki Log\nstatus: evergreen\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - meta\n  - log\n---\n\n# Wiki Log\n\nNewest completed operations appear first.\n\n## example-save — save — 2020-01-01\n\n- Principal page: [[mayak-decision|Решение Маяк]] (`wiki/sessions/mayak-decision.md`).\n- Updated catalog [[index|Wiki Index]] and the hot cache.\n- Outcome: one selected decision preserved as a participant statement; the\n  fixture data is synthetic and carries no independent corroboration.\n"
+    },
+    {
+      "path": "wiki/hot.md",
+      "mode": "replace",
+      "content": "---\ntype: meta\ntitle: Hot Cache\nstatus: developing\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - meta\n  - hot-cache\n---\n\n# Recent Context\n\n## Last Updated\n\n2020-01-01 — operation `example-save` preserved one selected decision.\n\n## Key Recent Facts\n\n- В учебном проекте «Маяк» заметки обновляют только после предварительного\n  просмотра (сохранено как утверждение участника; синтетические данные).\n\n## Recent Changes\n\n- Created [[mayak-decision|Решение Маяк]].\n- Updated the catalog [[index|Wiki Index]].\n\n## Active Threads\n\n- Add a source to `inbox/`, then ingest it.\n"
+    }
+  ],
+  "address_requests": [],
+  "source_manifest_updates": {}
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "claude-obsidian.transaction.v1",
+  "operation_id": "example-ingest",
+  "operation_type": "ingest",
+  "expected_hashes": {
+    "wiki/sources/mayak-release-guide.md": null,
+    "wiki/meta/ledgers/source-ledger.json": "CURRENT_SHA256",
+    "wiki/meta/ledgers/claim-ledger.json": "CURRENT_SHA256",
+    "wiki/index.md": "CURRENT_SHA256",
+    "wiki/log.md": "CURRENT_SHA256",
+    "wiki/hot.md": "CURRENT_SHA256"
+  },
+  "writes": [
+    {
+      "path": "wiki/sources/mayak-release-guide.md",
+      "mode": "create",
+      "content": "---\ntype: source\ntitle: \"Регламент релиза учебного проекта Маяк\"\ncreated: 2020-01-01\nupdated: 2020-01-01\nstatus: developing\ntags:\n  - source\n  - synthetic\nsource_type: document\nsource_id: \"src-320c51c5fe424c0ca28a\"\nsha256: 55f485e68325c38950d209fd3675966aa90dd51554930a45a89fd2916fcd2bbe\nauthority: synthetic\nreview_state: unreviewed\nkey_claims:\n  - \"Заявку подают за 7 календарных дней до выпуска.\"\n  - \"Нужны 2 независимых согласующих.\"\n  - \"Код контрольного примера: BIRCH-72.\"\n---\n\n# Регламент релиза учебного проекта Маяк\n\n> Синтетический тест-фикстура для проверки AI-инструмента; документ не описывает реальную организацию и не является реальной политикой.\n\nИсточник: [inbox/mayak-release-guide.md](../../inbox/mayak-release-guide.md)\n\n## Подготовка заявки\n\n- Заявку на релиз подают за 7 календарных дней до планируемого выпуска.\n- За 3 дня до выпуска координатор только проверяет комплектность документов.\n- Число 3 не является сроком подачи заявки.\n\n## Согласование\n\n- Для выпуска нужны 2 независимых согласующих: представитель разработки и представитель эксплуатации.\n- Автор заявки не может засчитываться как один из этих согласующих.\n\n## Контрольный пример\n\n- Код контрольного примера: BIRCH-72.\n- Все положения документа синтетические и используются только в тестовом vault.\n"
+    },
+    {
+      "path": "wiki/meta/ledgers/source-ledger.json",
+      "mode": "replace",
+      "content": "{\n  \"schema\": \"claude-obsidian.source-ledger.v1\",\n  \"generated_at\": \"2020-01-01T00:00:00Z\",\n  \"sources\": {\n    \"src-320c51c5fe424c0ca28a\": {\n      \"origin\": {\n        \"kind\": \"file\",\n        \"locator\": \"inbox/mayak-release-guide.md\"\n      },\n      \"content_kind\": \"synthetic\",\n      \"authority\": \"synthetic\",\n      \"title\": \"Регламент релиза учебного проекта Маяк\",\n      \"content_sha256\": \"55f485e68325c38950d209fd3675966aa90dd51554930a45a89fd2916fcd2bbe\",\n      \"ingested_at\": \"2020-01-01\",\n      \"retrieved_at\": null,\n      \"refresh_due\": null,\n      \"review_status\": \"unreviewed\",\n      \"independence_key\": null,\n      \"pages\": [\n        \"wiki/sources/mayak-release-guide.md\"\n      ],\n      \"supersedes\": null\n    }\n  }\n}\n"
+    },
+    {
+      "path": "wiki/meta/ledgers/claim-ledger.json",
+      "mode": "replace",
+      "content": "{\n  \"schema\": \"claude-obsidian.claim-ledger.v1\",\n  \"generated_at\": \"2020-01-01T00:00:00Z\",\n  \"claims\": {\n    \"clm-mayak-1\": {\n      \"text\": \"Заявку на релиз подают за 7 календарных дней до планируемого выпуска.\",\n      \"risk\": \"normal\",\n      \"assessment\": \"provisional\",\n      \"confidence\": \"medium\",\n      \"location\": {\n        \"path\": \"wiki/sources/mayak-release-guide.md\",\n        \"anchor\": \"Подготовка заявки\"\n      },\n      \"reviewed_at\": null,\n      \"notes\": \"Синтетическая фикстура; провизорно, не принято.\",\n      \"supersedes\": null,\n      \"evidence\": [\n        {\n          \"source_id\": \"src-320c51c5fe424c0ca28a\",\n          \"relation\": \"supports\",\n          \"locator\": \"inbox/mayak-release-guide.md\"\n        }\n      ]\n    },\n    \"clm-mayak-2\": {\n      \"text\": \"За 3 дня до выпуска координатор только проверяет комплектность документов; 3 дня не являются сроком подачи заявки.\",\n      \"risk\": \"normal\",\n      \"assessment\": \"provisional\",\n      \"confidence\": \"medium\",\n      \"location\": {\n        \"path\": \"wiki/sources/mayak-release-guide.md\",\n        \"anchor\": \"Подготовка заявки\"\n      },\n      \"reviewed_at\": null,\n      \"notes\": \"Синтетическая фикстура; провизорно, не принято.\",\n      \"supersedes\": null,\n      \"evidence\": [\n        {\n          \"source_id\": \"src-320c51c5fe424c0ca28a\",\n          \"relation\": \"supports\",\n          \"locator\": \"inbox/mayak-release-guide.md\"\n        }\n      ]\n    },\n    \"clm-mayak-3\": {\n      \"text\": \"Для выпуска нужны 2 независимых согласующих: представитель разработки и представитель эксплуатации; автор заявки не засчитывается как согласующий.\",\n      \"risk\": \"normal\",\n      \"assessment\": \"provisional\",\n      \"confidence\": \"medium\",\n      \"location\": {\n        \"path\": \"wiki/sources/mayak-release-guide.md\",\n        \"anchor\": \"Согласование\"\n      },\n      \"reviewed_at\": null,\n      \"notes\": \"Синтетическая фикстура; провизорно, не принято.\",\n      \"supersedes\": null,\n      \"evidence\": [\n        {\n          \"source_id\": \"src-320c51c5fe424c0ca28a\",\n          \"relation\": \"supports\",\n          \"locator\": \"inbox/mayak-release-guide.md\"\n        }\n      ]\n    },\n    \"clm-mayak-4\": {\n      \"text\": \"Код контрольного примера: BIRCH-72.\",\n      \"risk\": \"normal\",\n      \"assessment\": \"provisional\",\n      \"confidence\": \"medium\",\n      \"location\": {\n        \"path\": \"wiki/sources/mayak-release-guide.md\",\n        \"anchor\": \"Контрольный пример\"\n      },\n      \"reviewed_at\": null,\n      \"notes\": \"Синтетическая фикстура; провизорно, не принято.\",\n      \"supersedes\": null,\n      \"evidence\": [\n        {\n          \"source_id\": \"src-320c51c5fe424c0ca28a\",\n          \"relation\": \"supports\",\n          \"locator\": \"inbox/mayak-release-guide.md\"\n        }\n      ]\n    }\n  }\n}\n"
+    },
+    {
+      "path": "wiki/index.md",
+      "mode": "replace",
+      "content": "---\ntype: meta\ntitle: Wiki Index\nstatus: evergreen\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - meta\n  - index\n---\n\n# Wiki Index\n\nThis catalog is updated by completed knowledge operations.\n\n## Sources\n\n- [[mayak-release-guide]] — Регламент релиза учебного проекта Маяк (синтетическая фикстура, провизорно)\n\n## Concepts\n\n- No concepts indexed yet.\n\n## Entities\n\n- No entities indexed yet.\n\n## Questions\n\n- No questions indexed yet.\n"
+    },
+    {
+      "path": "wiki/log.md",
+      "mode": "replace",
+      "content": "---\ntype: meta\ntitle: Wiki Log\nstatus: evergreen\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - meta\n  - log\n---\n\n# Wiki Log\n\nNewest completed operations appear first.\n\n## example-ingest\n\n- Operation id: example-ingest (ingest, применено)\n- Date: 2020-01-01\n- Source: inbox/mayak-release-guide.md (synthetic fixture)\n- Created: [[mayak-release-guide]]\n- Claims: 4 provisional (не принято)\n"
+    },
+    {
+      "path": "wiki/hot.md",
+      "mode": "replace",
+      "content": "---\ntype: meta\ntitle: Hot Cache\nstatus: developing\ncreated: 2020-01-01\nupdated: 2020-01-01\ntags:\n  - meta\n  - hot-cache\n---\n\n# Recent Context\n\n## Last Updated\n\n2020-01-01 — example-ingest применён (завершено).\n\n## Key Recent Facts\n\n- Ingested [[mayak-release-guide]]: синтетический регламент релиза (провизорные claims, не принято).\n\n## Recent Changes\n\n- example-ingest: source/claim ledgers, index, log, hot cache.\n\n## Active Threads\n\n- example-ingest: предпросмотр проверен, операция применена.\n"
+    }
+  ],
+  "address_requests": [
+    {
+      "path": "wiki/sources/mayak-release-guide.md",
+      "prefix": "c"
+    }
+  ],
+  "source_manifest_updates": {
+    "inbox/mayak-release-guide.md": {
+      "hash": "55f485e68325c38950d209fd3675966aa90dd51554930a45a89fd2916fcd2bbe",
+      "pages_created": [
+        "wiki/sources/mayak-release-guide.md"
+      ]
+    }
+  }
+}

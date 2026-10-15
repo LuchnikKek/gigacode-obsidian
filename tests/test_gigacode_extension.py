@@ -20,6 +20,10 @@ sys.path.insert(0, str(ROOT))
 from claude_obsidian.release import _load_config, _selected
 
 ENTRYPOINTS = ("gigacode-extension.json", "qwen-extension.json", "GIGACODE.md")
+ADAPTER_FILES = ENTRYPOINTS + (
+    "docs/gigacode-workflows.md", "examples/gigacode/save.json",
+    "examples/gigacode/ingest.json", "examples/gigacode/mayak-release-guide.md",
+)
 PRIMARY_SKILLS = ("wiki", "save", "wiki-ingest", "wiki-query", "wiki-lint")
 
 
@@ -55,10 +59,48 @@ class GigaCodeExtensionTests(unittest.TestCase):
         config, errors = _load_config(ROOT)
         self.assertEqual([], errors)
         assert config is not None
-        for name in ENTRYPOINTS:
+        for name in ADAPTER_FILES:
             self.assertTrue(_selected(name, config), f"release omits {name}")
         for path in (ROOT / "agents").glob("*.md"):
             self.assertFalse(_selected(path.relative_to(ROOT).as_posix(), config))
+
+    def test_examples_apply_as_reviewed_transactions(self) -> None:
+        for name in ("save", "ingest"):
+            with self.subTest(example=name), tempfile.TemporaryDirectory() as directory:
+                example = ROOT / "examples" / "gigacode" / (name + ".json")
+                self.assertTrue(example.is_file(), f"missing tested example: {name}")
+                parent = Path(directory)
+                vault = parent / "vault"
+                core = [sys.executable, str(ROOT / "scripts/claude-obsidian.py")]
+                init = core + ["init", str(vault), "--generated-at", "2020-01-01T00:00:00Z", "--operation-id", "example-setup"]
+                preview = json.loads(subprocess.check_output(init, text=True))
+                subprocess.check_output(init + ["--apply", "--approved-plan-sha256", preview["approved_plan_sha256"]], text=True)
+                source = ROOT / "examples/gigacode/mayak-release-guide.md"
+                shutil.copyfile(source, vault / "inbox/mayak-release-guide.md")
+                bundle = json.loads(example.read_text(encoding="utf-8"))
+                # Examples demonstrate a shape; real preconditions come from this vault.
+                for path in bundle["expected_hashes"]:
+                    target = vault / path
+                    bundle["expected_hashes"][path] = hashlib.sha256(target.read_bytes()).hexdigest() if target.exists() else None
+                candidate = parent / "bundle.json"
+                candidate.write_text(json.dumps(bundle, ensure_ascii=False), encoding="utf-8")
+                before = snapshot(vault)
+                inspect_cmd = core + ["transaction", "inspect", str(candidate), "--vault", str(vault)]
+                plan = json.loads(subprocess.check_output(inspect_cmd, text=True))
+                self.assertTrue(plan["valid"])
+                self.assertEqual(before, snapshot(vault))
+                apply_cmd = core + ["transaction", "apply", str(candidate), "--vault", str(vault), "--approved-plan-sha256", plan["approval_sha256"]]
+                result = json.loads(subprocess.check_output(apply_cmd, text=True))
+                self.assertEqual("complete", result["status"])
+                self.assertEqual(plan["changed_paths"], result["changed_paths"])
+                after = snapshot(vault)
+                subprocess.check_output(apply_cmd, text=True)
+                self.assertEqual(after, snapshot(vault))
+                self.assertEqual(source.read_bytes(), (vault / "inbox/mayak-release-guide.md").read_bytes())
+                if name == "ingest":
+                    claims = json.loads((vault / "wiki/meta/ledgers/claim-ledger.json").read_text())["claims"]
+                    self.assertTrue(claims)
+                    self.assertTrue(all(claim["assessment"] == "provisional" for claim in claims.values()))
 
     def test_relocated_selected_package_doctor_is_read_only(self) -> None:
         config, errors = _load_config(ROOT)
@@ -72,7 +114,7 @@ class GigaCodeExtensionTests(unittest.TestCase):
             candidates = subprocess.check_output(
                 ["git", "-C", str(ROOT), "ls-files", "-z"], text=True
             ).split("\0")
-            for relative in sorted(set(candidates) | set(ENTRYPOINTS)):
+            for relative in sorted(set(candidates) | set(ADAPTER_FILES)):
                 if not relative or not _selected(relative, config):
                     continue
                 source = ROOT / relative
@@ -82,6 +124,8 @@ class GigaCodeExtensionTests(unittest.TestCase):
                     shutil.copy2(source, target)
             self.assertTrue((installed / manifest["contextFileName"]).is_file())
             self.assertFalse((installed / "agents").exists())
+            for relative in ADAPTER_FILES:
+                self.assertTrue((installed / relative).is_file(), relative)
             for skill in PRIMARY_SKILLS:
                 self.assertTrue((installed / "skills" / skill / "SKILL.md").is_file())
             vault = parent / "отдельный vault"

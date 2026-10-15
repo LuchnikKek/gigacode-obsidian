@@ -103,3 +103,67 @@ at that test; never present an early exit as a complete green run.
 - An independent read-only review reported no actionable M1 findings.
 - No live model workflow, direct GigaCode run, macOS run, push or publication
   is claimed by this evidence.
+
+## Live M2 results and bounded follow-up
+
+On 2026-10-16, Qwen 0.25.2 with deepseek/deepseek-v4-flash-0731 exercised the
+five primary workflows in WSL. Save, Ingest, Query and Lint completed, with
+operator continuations for Save/Ingest and one review correction to proposed
+log/hot wording. Init wrote the exact approved files, but its CLI process did
+not return a final result within the test limit. Query/Lint preserved vault
+bytes; identical Save/Ingest reapply created no duplicates.
+
+Version 0.1.1 adds a [short workflow reference](gigacode-workflows.md) and
+tested synthetic Save/Ingest examples. This is an adapter/documentation change.
+It does not redesign the inherited provenance or transaction architecture.
+Evaluate supported facts, approved file changes and data preservation; prose
+style and model verbosity are observations, not adapter failures.
+
+## Repeatable Qwen checks
+
+The optional standard-library runner is tests/manual/qwen_run.py. It is not
+part of vault mutation logic and makes no model calls during make test.
+
+Use a fresh workspace and a separate QWEN_HOME for each independent scenario.
+Configure only the selected model/provider credentials in that profile, keeping
+settings.json private. Do not copy old project memory, hooks or MCP settings.
+For isolated checks in the tested Qwen version, add this settings object:
+
+```json
+{
+  "memory": {
+    "enableManagedAutoMemory": false,
+    "enableManagedAutoDream": false,
+    "enableAutoSkill": false
+  },
+  "telemetry": {"enabled": false}
+}
+```
+
+These are test-host settings, not GigaCode requirements or changes to the
+user's normal Qwen profile. The installed Qwen headless implementation waits
+for pending memory tasks before emitting its result. In one paired check of the
+same approved init operation, memory enabled took 120.1 seconds versus 26.8
+seconds disabled; both completed successfully. The earlier 371-second hang was
+not reproduced. Model/provider variability remains a possible contributor.
+
+Install the audited archive into the isolated profile and run a scoped prompt:
+
+```bash
+QWEN_HOME="$PROFILE" qwen extensions install "$ARCHIVE" --scope user --consent
+python3 tests/manual/qwen_run.py --profile "$PROFILE" --workspace "$WORKSPACE" \
+  --prompt "$PROMPT_FILE" --output "$NEW_OUTPUT_DIRECTORY" \
+  --model deepseek/deepseek-v4-flash-0731 --timeout 480 --max-tool-calls 50
+```
+
+The runner preserves CLI exit status independently from the model's result,
+records tool/result timing, strips thinking blocks and redacts profile env
+values from exported logs. Its outer deadline interrupts then kills only its
+own process group if the CLI does not exit. Exit 124 denotes that deadline.
+Use only synthetic vaults: allowed shell/file tools are not an OS sandbox.
+
+Keep preview and apply as separate phases with exact hash approval. Snapshot
+all vault file hashes before and after Query/Lint and before any unapproved
+preview. Use a fresh conversation for Query and verify citations against pages
+actually read. Record failures as adapter/core/host/model observations; do not
+hide a failed attempt by overwriting its output directory.

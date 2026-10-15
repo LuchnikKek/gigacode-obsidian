@@ -1,6 +1,6 @@
 {
   "name": "gigacode-obsidian",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Source-cited Obsidian knowledge workflows for GigaCode CLI. Qwen Code is the compatibility test host.",
   "contextFileName": "GIGACODE.md",
   "skills": "skills",

@@ -5,7 +5,10 @@ Qwen Code is a compatibility host and reads this same file.
 
 Use the extension's skills when the user asks to work with an Obsidian vault.
 The primary workflows are wiki, save, wiki-ingest, wiki-query and wiki-lint.
-Follow the selected SKILL.md and its relative references.
+Follow the selected SKILL.md and its relative references. For the five primary
+workflows, use docs/gigacode-workflows.md and its tested Save/Ingest examples
+before exploring implementation code. Adapt the examples to the actual input
+and current vault bytes; examples never authorize an apply.
 
 Resolve the installed product root from the absolute location of the loaded
 skill: skills/<name>/SKILL.md is two directories below the product root.
