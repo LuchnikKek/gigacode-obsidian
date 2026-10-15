@@ -31,6 +31,6 @@ Files: tests/test_gigacode_extension.py, docs/gigacode-extension.md, README.md.
 - [x] Run make test; preserve and report the accepted baseline failure.
 - [x] Run unaffected test files and shell/contracts/package checks to avoid
       treating the suite's early exit as coverage of later files.
-- [ ] Commit only the reviewed task files locally and build/audit the release.
-- [ ] Install the archive with Qwen and inspect native loaded components offline.
-- [ ] Obtain independent review, address relevant findings, record evidence.
+- [x] Commit only the reviewed task files locally and build/audit the release.
+- [x] Install the archive with Qwen and inspect native loaded components offline.
+- [x] Obtain independent review, address relevant findings, record evidence.

@@ -88,3 +88,18 @@ local WSL baseline when rapid writes retain the same modification timestamp.
 The owner requested recording this result rather than changing the test or core.
 Report the full make test result and run later suites separately if it stops
 at that test; never present an early exit as a complete green run.
+
+## Recorded offline M1 verification (2026-10-15)
+
+- Qwen Code 0.25.2 installed the audited ZIP in an isolated QWEN_HOME,
+  enabled only for a separate synthetic workspace.
+- The actual native loader reported format qwen, GIGACODE.md, 15 inherited
+  skills including the five primary workflows, zero subagents and empty hooks.
+- Doctor from the installed archive reported ok and left vault file bytes intact.
+- Three new package/relocation tests and package validation passed.
+- make test reproduced the accepted upstream baseline failure described above.
+  All 59 other transaction test functions, later Python suites, and the
+  test-shell, test-contracts and test-package targets passed separately.
+- An independent read-only review reported no actionable M1 findings.
+- No live model workflow, direct GigaCode run, macOS run, push or publication
+  is claimed by this evidence.
